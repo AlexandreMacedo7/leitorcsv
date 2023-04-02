@@ -1,4 +1,4 @@
-package br.com.macedo.leitorcsv.model;
+package br.com.macedo.leitorcsv.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

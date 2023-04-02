@@ -1,4 +1,4 @@
-package br.com.macedo.leitorcsv.model;
+package br.com.macedo.leitorcsv.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

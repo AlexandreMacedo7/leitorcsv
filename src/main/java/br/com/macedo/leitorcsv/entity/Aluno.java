@@ -1,4 +1,4 @@
-package br.com.macedo.leitorcsv.model;
+package br.com.macedo.leitorcsv.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,14 +14,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Livro {
+public class Aluno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String titulo;
-    private String autor;
-    private String editora;
-    private int ano;
+    private String nome;
+    private String matricula;
+    private String fone;
+    private String serie;
+    private String turno;
 }
