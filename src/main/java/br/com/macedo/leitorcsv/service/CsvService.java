@@ -1,23 +1,17 @@
 package br.com.macedo.leitorcsv.service;
 
-import br.com.macedo.leitorcsv.model.Aluno;
-import br.com.macedo.leitorcsv.model.Avaliacao;
-import br.com.macedo.leitorcsv.model.Livro;
-import br.com.macedo.leitorcsv.model.RegistroAluno;
+import br.com.macedo.leitorcsv.entity.RegistroAluno;
 import br.com.macedo.leitorcsv.repostitory.AlunoRepository;
 import br.com.macedo.leitorcsv.repostitory.AvaliacaoRepository;
 import br.com.macedo.leitorcsv.repostitory.LivroRepository;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +22,7 @@ public class CsvService {
     private AlunoRepository alunoRepository;
     @Autowired
     private LivroRepository livroRepository;
+
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
 
@@ -63,7 +58,7 @@ public class CsvService {
         return listaRegistros;
     }
 
-    public void salvarCsv(List<RegistroAluno> listaRegistros) throws IOException {
+    private void salvarCsv(List<RegistroAluno> listaRegistros) throws IOException {
         File diretorio = new File("C:\\Projetos\\leitorcsv\\src\\main\\resources\\arquivorecebido");
 
         String nomeArquivo = "recebido";
@@ -93,46 +88,5 @@ public class CsvService {
             }
 
         }
-    }
-
-    @Transactional
-    public void processarCsv(String caminho) throws IOException, CsvException {
-        CSVReader csvReader = new CSVReader(new FileReader(caminho));
-
-        List<String[]> linhas = csvReader.readAll();
-
-        linhas.remove(0);
-
-        List<Aluno> alunoList = new ArrayList<>();
-        List<Livro> livrosList = new ArrayList<>();
-        List<Avaliacao> avalicaosList = new ArrayList<>();
-
-        for (String[] linha : linhas){
-            Aluno aluno = new Aluno();
-            aluno.setNome(linha[0]);
-            aluno.setMatricula(linha[1]);
-            aluno.setFone(linha[2]);
-            aluno.setSerie(linha[3]);
-            aluno.setTurno(linha[4]);
-            alunoList.add(aluno);
-
-            Livro livro = new Livro();
-
-            livro.setTitulo(linha[5]);
-            livro.setAutor(linha[6]);
-            livro.setEditora(linha[7]);
-            livro.setAno(Integer.parseInt(linha[8]));
-            livrosList.add(livro);
-
-            Avaliacao avalicao = new Avaliacao();
-
-            avalicao.setNota(Double.parseDouble(linha[9]));
-            avalicao.setDataAvaliacao(LocalDate.parse(linha[10]));
-            avalicaosList.add(avalicao);
-        }
-
-        alunoRepository.saveAll(alunoList);
-        livroRepository.saveAll(livrosList);
-        avaliacaoRepository.saveAll(avalicaosList);
     }
 }
