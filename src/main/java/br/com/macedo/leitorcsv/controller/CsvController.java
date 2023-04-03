@@ -20,7 +20,7 @@ public class CsvController {
     @Autowired
     private CsvService csvService;
     @PostMapping("/csv")
-    public ResponseEntity<RegistroAlunoDTO> uploadCsv(@RequestPart("file") MultipartFile file) throws IOException {
+    public ResponseEntity<?> uploadCsv(@RequestPart("file") MultipartFile file) throws IOException {
         List<RegistroAlunoDTO> registroAlunoDTOS = csvService.processarCsv(file);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
