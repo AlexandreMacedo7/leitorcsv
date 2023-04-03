@@ -16,8 +16,8 @@ public class MonitoradorService {
     private CsvService csvService;
 
     //Caminho para a pasta
-    @Value("${csv.folder}")
-    private String folderPath = "C:\\Projetos\\leitorcsv\\src\\main\\resources";
+    //@Value("${csv.folder}")
+    private final String folderPath = "C:\\Projetos\\leitorcsv\\src\\main\\resources";
 
 
     public void inicio() throws IOException {
