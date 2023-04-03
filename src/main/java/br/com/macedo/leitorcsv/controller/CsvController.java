@@ -21,7 +21,7 @@ public class CsvController {
     private CsvService csvService;
     @PostMapping("/csv")
     public ResponseEntity<?> uploadCsv(@RequestPart("file") MultipartFile file) throws IOException {
-        List<RegistroAlunoDTO> registroAlunoDTOS = csvService.processarCsv(file);
+        csvService.processarCsv(file);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
