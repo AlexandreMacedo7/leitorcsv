@@ -1,5 +1,6 @@
 package br.com.macedo.leitorcsv.service;
 
+import br.com.macedo.leitorcsv.dto.RegistroAlunoDTO;
 import br.com.macedo.leitorcsv.entity.RegistroAluno;
 import br.com.macedo.leitorcsv.repostitory.AlunoRepository;
 import br.com.macedo.leitorcsv.repostitory.AvaliacaoRepository;
@@ -26,27 +27,27 @@ public class CsvService {
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
 
-    public List<RegistroAluno> processarCsv(MultipartFile file) throws IOError, IOException {
+    public List<RegistroAlunoDTO> processarCsv(MultipartFile file) throws IOError, IOException {
 
-        List<RegistroAluno> listaRegistros = new ArrayList<>();
+        List<RegistroAlunoDTO> listaRegistros = new ArrayList<>();
 
         try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
             String[] linha;
             while ((linha = reader.readNext()) != null) {
-                RegistroAluno RegistroAluno = new RegistroAluno();
-                RegistroAluno.setNome(linha[0]);
-                RegistroAluno.setMatricula(linha[1]);
-                RegistroAluno.setFone(linha[2]);
-                RegistroAluno.setSerie(linha[3]);
-                RegistroAluno.setTurno(linha[4]);
-                RegistroAluno.setTitulo(linha[5]);
-                RegistroAluno.setAutor(linha[6]);
-                RegistroAluno.setEditora(linha[7]);
-                RegistroAluno.setAnoPublicacao(linha[8]);
-                RegistroAluno.setNota(linha[9]);
-                RegistroAluno.setDevolucao(linha[10]);
+                RegistroAlunoDTO registroAluno = new RegistroAlunoDTO();
+                registroAluno.setNome(linha[0]);
+                registroAluno.setMatricula(linha[1]);
+                registroAluno.setFone(linha[2]);
+                registroAluno.setSerie(linha[3]);
+                registroAluno.setTurno(linha[4]);
+                registroAluno.setTitulo(linha[5]);
+                registroAluno.setAutor(linha[6]);
+                registroAluno.setEditora(linha[7]);
+                registroAluno.setAnoPublicacao(linha[8]);
+                registroAluno.setNota(linha[9]);
+                registroAluno.setDevolucao(linha[10]);
 
-                listaRegistros.add(RegistroAluno);
+                listaRegistros.add(registroAluno);
             }
         } catch (
                 CsvValidationException e) {
@@ -58,7 +59,7 @@ public class CsvService {
         return listaRegistros;
     }
 
-    private void salvarCsv(List<RegistroAluno> listaRegistros) throws IOException {
+    private void salvarCsv(List<RegistroAlunoDTO> listaRegistros) throws IOException {
         File diretorio = new File("C:\\Projetos\\leitorcsv\\src\\main\\resources\\arquivorecebido");
 
         String nomeArquivo = "recebido";
@@ -67,10 +68,10 @@ public class CsvService {
 
         try (CSVWriter writer = new CSVWriter(new FileWriter(caminhoCompleto))) {
 
-            String[] cabecalho = {"Nome", "Matricula", "Fone", "Serie","Turno", "Titulo", "Autor", "Editora", "AnoPublicacao", "Nota", "Devolucao"};
+            String[] cabecalho = {"Nome", "Matricula", "Fone", "Serie", "Turno", "Titulo", "Autor", "Editora", "AnoPublicacao", "Nota", "Devolucao"};
             writer.writeNext(cabecalho);
 
-            for (RegistroAluno registro : listaRegistros) {
+            for (RegistroAlunoDTO registro : listaRegistros) {
                 String[] linha = {
                         registro.getNome(),
                         registro.getMatricula(),
