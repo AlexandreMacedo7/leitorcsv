@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class RegistroAlunoMapper {
+public class ConversorCsvToDtoMapper {
 
     public List<RegistroAlunoDTO> converterCsvParaDto(MultipartFile file) throws IOException {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -41,7 +41,6 @@ public class RegistroAlunoMapper {
         } catch (CsvException e) {
             throw new RuntimeException(e);
         }
-
         return listaRegistros;
     }
 }

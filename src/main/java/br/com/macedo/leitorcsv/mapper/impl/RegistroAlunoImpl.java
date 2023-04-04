@@ -1,13 +1,17 @@
-package br.com.macedo.leitorcsv.mapper;
+package br.com.macedo.leitorcsv.mapper.impl;
 
 import br.com.macedo.leitorcsv.dto.RegistroAlunoDTO;
 import br.com.macedo.leitorcsv.entity.RegistroAluno;
+import br.com.macedo.leitorcsv.mapper.interf.RegistroAlunoMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-public class RegistroAlunoDtoToEnidadeRegistroAlunoMapper {
+@Component
+public class RegistroAlunoImpl implements RegistroAlunoMapper {
 
-    public RegistroAluno toEntidade(RegistroAlunoDTO dto){
+    @Override
+    public RegistroAluno toRegistroAluno(RegistroAlunoDTO dto){
 
         return Optional.ofNullable(dto)
                 .map(d -> {
