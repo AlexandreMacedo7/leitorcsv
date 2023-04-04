@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,9 +31,9 @@ public class RegistroAlunoMapper {
                 registroAluno.setTitulo(linha[5]);
                 registroAluno.setAutor(linha[6]);
                 registroAluno.setEditora(linha[7]);
-                registroAluno.setAnoPublicacao(linha[8]);
-                registroAluno.setNota(linha[9]);
-                registroAluno.setDevolucao(linha[10]);
+                registroAluno.setAnoPublicacao(Integer.valueOf(linha[8]));
+                registroAluno.setNota(Double.valueOf(linha[9]));
+                registroAluno.setDevolucao(LocalDateTime.parse(linha[10]));
                 return registroAluno;
             }).collect(Collectors.toList());
         } catch (CsvException e) {
