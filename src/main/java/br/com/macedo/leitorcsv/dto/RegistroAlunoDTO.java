@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -22,9 +24,9 @@ public class RegistroAlunoDTO {
     private String titulo;
     private String autor;
     private String editora;
-    private String anoPublicacao;
-    private String nota;
-    private String devolucao;
+    private Integer anoPublicacao;
+    private Double nota;
+    private LocalDateTime devolucao;
 
     public RegistroAluno transformarObjeto(){
         return new RegistroAluno(nome, matricula, fone, serie, turno, titulo, autor, editora, anoPublicacao, nota, devolucao);
