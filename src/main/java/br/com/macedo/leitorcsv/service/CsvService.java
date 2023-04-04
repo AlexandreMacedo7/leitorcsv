@@ -1,7 +1,7 @@
 package br.com.macedo.leitorcsv.service;
 
 import br.com.macedo.leitorcsv.dto.RegistroAlunoDTO;
-import br.com.macedo.leitorcsv.mapper.RegistroAlunoMapper;
+import br.com.macedo.leitorcsv.mapper.ConversorCsvToDtoMapper;
 import br.com.macedo.leitorcsv.repostitory.AlunoRepository;
 import br.com.macedo.leitorcsv.repostitory.AvaliacaoRepository;
 import br.com.macedo.leitorcsv.repostitory.LivroRepository;
@@ -29,18 +29,17 @@ public class CsvService {
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
     @Autowired
-    private RegistroAlunoMapper registroAlunoMapper;
+    private ConversorCsvToDtoMapper conversorCsvToDtoMapper;
 
     @Autowired
     private FileValidacao fileValidacao;
-
 
     @Validated
     public void processarCsv(MultipartFile file) throws IOError, IOException {
 
         fileValidacao.isArquivoCsv(file);
 
-        List<RegistroAlunoDTO> listaRegistros = registroAlunoMapper.converterCsvParaDto(file);
+        List<RegistroAlunoDTO> listaRegistros = conversorCsvToDtoMapper.converterCsvParaDto(file);
 
         salvarCsv(listaRegistros);
     }
@@ -61,6 +60,5 @@ public class CsvService {
                             String.valueOf(registro.getNota()), String.valueOf(registro.getDevolucao())
                     }).forEach(writer::writeNext);
         }
-
     }
 }
