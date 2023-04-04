@@ -7,6 +7,7 @@ import br.com.macedo.leitorcsv.repostitory.AvaliacaoRepository;
 import br.com.macedo.leitorcsv.repostitory.LivroRepository;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CsvService {
@@ -27,13 +29,12 @@ public class CsvService {
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
 
-    public List<RegistroAlunoDTO> processarCsv(MultipartFile file) throws IOError, IOException {
+    public void processarCsv(MultipartFile file) throws IOError, IOException {
 
         List<RegistroAlunoDTO> listaRegistros = new ArrayList<>();
 
         try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
-            String[] linha;
-            while ((linha = reader.readNext()) != null) {
+            listaRegistros = reader.readAll().stream().skip(1).map(linha -> {
                 RegistroAlunoDTO registroAluno = new RegistroAlunoDTO();
                 registroAluno.setNome(linha[0]);
                 registroAluno.setMatricula(linha[1]);
@@ -46,17 +47,13 @@ public class CsvService {
                 registroAluno.setAnoPublicacao(linha[8]);
                 registroAluno.setNota(linha[9]);
                 registroAluno.setDevolucao(linha[10]);
-
-                listaRegistros.add(registroAluno);
-            }
-        } catch (
-                CsvValidationException e) {
+                return registroAluno;
+            }).collect(Collectors.toList());
+        } catch (CsvException e) {
             throw new RuntimeException(e);
         }
 
         salvarCsv(listaRegistros);
-
-        return listaRegistros;
     }
 
     private void salvarCsv(List<RegistroAlunoDTO> listaRegistros) throws IOException {
