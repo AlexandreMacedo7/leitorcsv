@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -23,5 +23,5 @@ public class Avaliacao {
     private Long id;
 
     private double nota;
-    private LocalDate dataAvaliacao;
+    private LocalDateTime dataAvaliacao;
 }
