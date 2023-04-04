@@ -28,8 +28,4 @@ public class RegistroAlunoDTO {
     private Double nota;
     private LocalDateTime devolucao;
 
-    public RegistroAluno transformarObjeto(){
-        return new RegistroAluno(nome, matricula, fone, serie, turno, titulo, autor, editora, anoPublicacao, nota, devolucao);
-    }
-
 }

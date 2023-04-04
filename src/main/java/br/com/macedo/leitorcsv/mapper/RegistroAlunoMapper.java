@@ -14,13 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.time.LocalDateTime.parse;
-
 @Component
 public class RegistroAlunoMapper {
 
     public List<RegistroAlunoDTO> converterCsvParaDto(MultipartFile file) throws IOException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         List<RegistroAlunoDTO> listaRegistros = new ArrayList<>();
 
@@ -37,7 +35,7 @@ public class RegistroAlunoMapper {
                 registroAluno.setEditora(linha[7]);
                 registroAluno.setAnoPublicacao(Integer.valueOf(linha[8]));
                 registroAluno.setNota(Double.valueOf(linha[9]));
-                registroAluno.setDevolucao(LocalDateTime.parse(linha[10], formatter));
+                registroAluno.setDevolucao(LocalDateTime.parse(linha[10], formato));
                 return registroAluno;
             }).collect(Collectors.toList());
         } catch (CsvException e) {
