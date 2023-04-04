@@ -9,14 +9,18 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.time.LocalDateTime.parse;
 
 @Component
 public class RegistroAlunoMapper {
 
     public List<RegistroAlunoDTO> converterCsvParaDto(MultipartFile file) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         List<RegistroAlunoDTO> listaRegistros = new ArrayList<>();
 
@@ -33,7 +37,7 @@ public class RegistroAlunoMapper {
                 registroAluno.setEditora(linha[7]);
                 registroAluno.setAnoPublicacao(Integer.valueOf(linha[8]));
                 registroAluno.setNota(Double.valueOf(linha[9]));
-                registroAluno.setDevolucao(LocalDateTime.parse(linha[10]));
+                registroAluno.setDevolucao(LocalDateTime.parse(linha[10], formatter));
                 return registroAluno;
             }).collect(Collectors.toList());
         } catch (CsvException e) {
