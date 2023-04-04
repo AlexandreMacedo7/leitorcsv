@@ -2,6 +2,7 @@ package br.com.macedo.leitorcsv.service;
 
 import br.com.macedo.leitorcsv.dto.RegistroAlunoDTO;
 import br.com.macedo.leitorcsv.entity.RegistroAluno;
+import br.com.macedo.leitorcsv.mapper.RegistroAlunoMapper;
 import br.com.macedo.leitorcsv.repostitory.AlunoRepository;
 import br.com.macedo.leitorcsv.repostitory.AvaliacaoRepository;
 import br.com.macedo.leitorcsv.repostitory.LivroRepository;
@@ -29,6 +30,8 @@ public class CsvService {
 
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
+    @Autowired
+    private RegistroAlunoMapper registroAlunoMapper;
 
 
     private boolean isArquivoCsv(MultipartFile multipartFile){
@@ -40,27 +43,7 @@ public class CsvService {
 
         if (!isArquivoCsv(file))throw new IllegalArgumentException("Arquivo deve ser do tipo CSV");
 
-        List<RegistroAlunoDTO> listaRegistros = new ArrayList<>();
-
-        try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
-            listaRegistros = reader.readAll().stream().skip(1).map(linha -> {
-                RegistroAlunoDTO registroAluno = new RegistroAlunoDTO();
-                registroAluno.setNome(linha[0]);
-                registroAluno.setMatricula(linha[1]);
-                registroAluno.setFone(linha[2]);
-                registroAluno.setSerie(linha[3]);
-                registroAluno.setTurno(linha[4]);
-                registroAluno.setTitulo(linha[5]);
-                registroAluno.setAutor(linha[6]);
-                registroAluno.setEditora(linha[7]);
-                registroAluno.setAnoPublicacao(linha[8]);
-                registroAluno.setNota(linha[9]);
-                registroAluno.setDevolucao(linha[10]);
-                return registroAluno;
-            }).collect(Collectors.toList());
-        } catch (CsvException e) {
-            throw new RuntimeException(e);
-        }
+        List<RegistroAlunoDTO> listaRegistros = registroAlunoMapper.converterCsvParaDto(file);
 
         salvarCsv(listaRegistros);
     }
