@@ -1,17 +1,22 @@
-properties
-
 # Configurações do banco de dados H2
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
 
-# Configurações do Hibernate
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-spring.jpa.hibernate.ddl-auto=create-drop
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
+  # Configurações do Hibernate
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
 
-# Configurações do console H2
-spring.h2.console.enabled=true
-spring.h2.console.path=/h2-console
+  # Configurações do console H2
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+

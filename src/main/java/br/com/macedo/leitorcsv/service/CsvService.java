@@ -60,34 +60,21 @@ public class CsvService {
     }
 
     private void salvarCsv(List<RegistroAlunoDTO> listaRegistros) throws IOException {
+
         File diretorio = new File("C:\\Projetos\\leitorcsv\\src\\main\\resources\\arquivorecebido");
-
         String nomeArquivo = "recebido";
-
         String caminhoCompleto = diretorio.getAbsolutePath() + "/" + nomeArquivo;
 
         try (CSVWriter writer = new CSVWriter(new FileWriter(caminhoCompleto))) {
 
-            String[] cabecalho = {"Nome", "Matricula", "Fone", "Serie", "Turno", "Titulo", "Autor", "Editora", "AnoPublicacao", "Nota", "Devolucao"};
-            writer.writeNext(cabecalho);
-
-            for (RegistroAlunoDTO registro : listaRegistros) {
-                String[] linha = {
-                        registro.getNome(),
-                        registro.getMatricula(),
-                        registro.getFone(),
-                        registro.getSerie(),
-                        registro.getTurno(),
-                        registro.getTitulo(),
-                        registro.getAutor(),
-                        registro.getEditora(),
-                        registro.getAnoPublicacao(),
-                        registro.getNota(),
-                        registro.getDevolucao()
-                };
-                writer.writeNext(linha);
-            }
-
+            listaRegistros.stream()
+                    .map(registro -> new String[]{
+                            registro.getNome(), registro.getMatricula(), registro.getFone(),
+                            registro.getSerie(), registro.getTurno(), registro.getTitulo(),
+                            registro.getAutor(), registro.getEditora(), registro.getAnoPublicacao(),
+                            registro.getNota(), registro.getDevolucao()
+                    }).forEach(writer::writeNext);
         }
+
     }
 }
