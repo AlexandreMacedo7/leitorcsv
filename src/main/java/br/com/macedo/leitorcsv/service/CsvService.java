@@ -57,8 +57,8 @@ public class CsvService {
                     .map(registro -> new String[]{
                             registro.getNome(), registro.getMatricula(), registro.getFone(),
                             registro.getSerie(), registro.getTurno(), registro.getTitulo(),
-                            registro.getAutor(), registro.getEditora(), registro.getAnoPublicacao(),
-                            registro.getNota(), registro.getDevolucao()
+                            registro.getAutor(), registro.getEditora(), String.valueOf(registro.getAnoPublicacao()),
+                            String.valueOf(registro.getNota()), String.valueOf(registro.getDevolucao())
                     }).forEach(writer::writeNext);
         }
 
