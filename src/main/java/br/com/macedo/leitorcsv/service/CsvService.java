@@ -9,6 +9,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
+import org.aspectj.apache.bcel.generic.MULTIANEWARRAY;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +30,15 @@ public class CsvService {
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
 
+
+    private boolean isArquivoCsv(MultipartFile multipartFile){
+
+           return multipartFile.getContentType().equals("text/csv") || multipartFile.getOriginalFilename().endsWith(".csv");
+    }
+
     public void processarCsv(MultipartFile file) throws IOError, IOException {
+
+        if (!isArquivoCsv(file))throw new IllegalArgumentException("Arquivo deve ser do tipo CSV");
 
         List<RegistroAlunoDTO> listaRegistros = new ArrayList<>();
 
