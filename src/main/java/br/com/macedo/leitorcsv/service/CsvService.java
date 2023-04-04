@@ -1,24 +1,22 @@
 package br.com.macedo.leitorcsv.service;
 
 import br.com.macedo.leitorcsv.dto.RegistroAlunoDTO;
-import br.com.macedo.leitorcsv.entity.RegistroAluno;
 import br.com.macedo.leitorcsv.mapper.RegistroAlunoMapper;
 import br.com.macedo.leitorcsv.repostitory.AlunoRepository;
 import br.com.macedo.leitorcsv.repostitory.AvaliacaoRepository;
 import br.com.macedo.leitorcsv.repostitory.LivroRepository;
-import com.opencsv.CSVReader;
+import br.com.macedo.leitorcsv.utility.FileValidacao;
 import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvException;
-import com.opencsv.exceptions.CsvValidationException;
-import org.aspectj.apache.bcel.generic.MULTIANEWARRAY;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOError;
+import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CsvService {
@@ -33,15 +31,14 @@ public class CsvService {
     @Autowired
     private RegistroAlunoMapper registroAlunoMapper;
 
+    @Autowired
+    private FileValidacao fileValidacao;
 
-    private boolean isArquivoCsv(MultipartFile multipartFile){
 
-           return multipartFile.getContentType().equals("text/csv") || multipartFile.getOriginalFilename().endsWith(".csv");
-    }
-
+    @Validated
     public void processarCsv(MultipartFile file) throws IOError, IOException {
 
-        if (!isArquivoCsv(file))throw new IllegalArgumentException("Arquivo deve ser do tipo CSV");
+        fileValidacao.isArquivoCsv(file);
 
         List<RegistroAlunoDTO> listaRegistros = registroAlunoMapper.converterCsvParaDto(file);
 
