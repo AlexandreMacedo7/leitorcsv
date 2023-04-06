@@ -1,4 +1,4 @@
-# Configurações do banco de dados H2
+# Configuraï¿½ï¿½es do banco de dados H2
 spring:
   datasource:
     url: jdbc:h2:mem:testdb
@@ -6,7 +6,7 @@ spring:
     username: sa
     password:
 
-  # Configurações do Hibernate
+  # Configuraï¿½ï¿½es do Hibernate
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate.ddl-auto: create-drop
@@ -14,7 +14,7 @@ spring:
     properties:
       hibernate.format_sql: true
 
-  # Configurações do console H2
+  # Configuraï¿½ï¿½es do console H2
   h2:
     console:
       enabled: true
