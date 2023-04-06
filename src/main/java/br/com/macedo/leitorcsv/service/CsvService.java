@@ -47,7 +47,7 @@ public class CsvService {
     private void salvarCsv(List<RegistroAlunoDTO> listaRegistros) throws IOException {
 
         File diretorio = new File("C:\\Projetos\\leitorcsv\\src\\main\\resources\\arquivorecebido");
-        String nomeArquivo = "recebido";
+        String nomeArquivo = "recebido.csv";
         String caminhoCompleto = diretorio.getAbsolutePath() + "/" + nomeArquivo;
 
         try (CSVWriter writer = new CSVWriter(new FileWriter(caminhoCompleto))) {
