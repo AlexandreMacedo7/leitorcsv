@@ -1,6 +1,6 @@
 package br.com.macedo.leitorcsv.mapper;
 
-import br.com.macedo.leitorcsv.dto.RegistroAlunoDTO;
+import br.com.macedo.leitorcsv.entity.RegistroAluno;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import org.springframework.stereotype.Component;
@@ -15,16 +15,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ConversorCsvToDtoMapper {
+public class ConversorCsvToEntityMapper {
 
-    public List<RegistroAlunoDTO> converterCsvParaDto(MultipartFile file) throws IOException {
+    public List<RegistroAluno> converterCsvParaDto(MultipartFile file) throws IOException {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-        List<RegistroAlunoDTO> listaRegistros = new ArrayList<>();
+        List<RegistroAluno> listaRegistros = new ArrayList<>();
 
         try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))){
             listaRegistros = reader.readAll().stream().skip(1).map(linha ->{
-                RegistroAlunoDTO registroAluno = new RegistroAlunoDTO();
+                RegistroAluno registroAluno = new RegistroAluno();
                 registroAluno.setNome(linha[0]);
                 registroAluno.setMatricula(linha[1]);
                 registroAluno.setFone(linha[2]);

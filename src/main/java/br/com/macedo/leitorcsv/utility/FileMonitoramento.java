@@ -1,6 +1,6 @@
 package br.com.macedo.leitorcsv.utility;
 
-import br.com.macedo.leitorcsv.mapper.ConversorCsvToDtoMapper;
+import br.com.macedo.leitorcsv.mapper.ConversorCsvToEntityMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class FileMonitoramento {
     @Autowired
     private ResourceLoader resourceLoader;
     @Autowired
-    ConversorCsvToDtoMapper csvToDtoMapper;
+    ConversorCsvToEntityMapper csvToDtoMapper;
     private final static Logger LOGGER = LoggerFactory.getLogger(FileMonitoramento.class);
 
 

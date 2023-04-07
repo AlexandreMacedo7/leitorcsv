@@ -1,7 +1,7 @@
 package br.com.macedo.leitorcsv.service;
 
-import br.com.macedo.leitorcsv.dto.RegistroAlunoDTO;
-import br.com.macedo.leitorcsv.mapper.ConversorCsvToDtoMapper;
+import br.com.macedo.leitorcsv.entity.RegistroAluno;
+import br.com.macedo.leitorcsv.mapper.ConversorCsvToEntityMapper;
 import br.com.macedo.leitorcsv.repostitory.AlunoRepository;
 import br.com.macedo.leitorcsv.repostitory.AvaliacaoRepository;
 import br.com.macedo.leitorcsv.repostitory.LivroRepository;
@@ -29,7 +29,7 @@ public class CsvService {
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
     @Autowired
-    private ConversorCsvToDtoMapper conversorCsvToDtoMapper;
+    private ConversorCsvToEntityMapper conversorCsvToEntityMapper;
 
     @Autowired
     private FileValidacao fileValidacao;
@@ -39,12 +39,12 @@ public class CsvService {
 
         fileValidacao.isArquivoCsv(file);
 
-        List<RegistroAlunoDTO> listaRegistros = conversorCsvToDtoMapper.converterCsvParaDto(file);
+        List<RegistroAluno> listaRegistros = conversorCsvToEntityMapper.converterCsvParaDto(file);
 
         salvarCsv(listaRegistros);
     }
 
-    private void salvarCsv(List<RegistroAlunoDTO> listaRegistros) throws IOException {
+    private void salvarCsv(List<RegistroAluno> listaRegistros) throws IOException {
 
         File diretorio = new File("C:\\Projetos\\leitorcsv\\src\\main\\resources\\arquivorecebido");
         String nomeArquivo = "recebido.csv";
