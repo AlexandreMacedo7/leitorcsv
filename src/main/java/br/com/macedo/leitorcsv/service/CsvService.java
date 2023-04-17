@@ -39,16 +39,17 @@ public class CsvService {
 
         fileValidacao.isArquivoCsv(file);
 
-        List<RegistroAluno> listaRegistros = conversorCsvToEntityMapper.converterCsvParaDto(file);
+        List<RegistroAluno> listaRegistros = conversorCsvToEntityMapper.converterCsvParaEntity(file);
 
         salvarCsv(listaRegistros);
     }
 
     private void salvarCsv(List<RegistroAluno> listaRegistros) throws IOException {
 
-        File diretorio = new File("C:\\Projetos\\leitorcsv\\src\\main\\resources\\arquivorecebido");
-        String nomeArquivo = "recebido.csv";
-        String caminhoCompleto = diretorio.getAbsolutePath() + "/" + nomeArquivo;
+        File diretorio = new File("data/arquivorecebido");
+
+        String nomeArquivo = "Arquivo_recebido.csv";
+        String caminhoCompleto = diretorio.getAbsolutePath() + File.separator + nomeArquivo;
 
         try (CSVWriter writer = new CSVWriter(new FileWriter(caminhoCompleto))) {
 

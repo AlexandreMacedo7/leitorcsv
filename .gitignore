@@ -61,4 +61,5 @@ mvnw.cmd
 spring.pid
 
 #pasta
-src/main/resources/arquivorecebido/
+data/arquivorecebido/
+data/arquivosprocessados
