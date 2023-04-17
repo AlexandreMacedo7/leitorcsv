@@ -23,7 +23,7 @@ public class FileMonitoramento {
     @Autowired
     private ResourceLoader resourceLoader;
     @Autowired
-    ConversorCsvToEntityMapper csvToDtoMapper;
+    ConversorCsvToEntityMapper csvToEntityMapper;
     private final static Logger LOGGER = LoggerFactory.getLogger(FileMonitoramento.class);
 
 
@@ -50,7 +50,7 @@ public class FileMonitoramento {
         Arrays.stream(arquivos).forEach(arquivo -> {
             try {
                 LOGGER.info("Arquivo entrontado: " + arquivo.getName());
-                csvToDtoMapper.converterCsvParaDto((MultipartFile) arquivo);
+                csvToEntityMapper.converterCsvParaEntity((MultipartFile) arquivo);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -17,7 +17,8 @@ import java.util.stream.Collectors;
 @Component
 public class ConversorCsvToEntityMapper {
 
-    public List<RegistroAluno> converterCsvParaDto(MultipartFile file) throws IOException {
+    public List<RegistroAluno> converterCsvParaEntity(MultipartFile file) throws IOException {
+
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         List<RegistroAluno> listaRegistros = new ArrayList<>();
