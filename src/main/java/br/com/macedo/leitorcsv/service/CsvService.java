@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOError;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -46,9 +48,13 @@ public class CsvService {
 
     private void salvarCsv(List<RegistroAluno> listaRegistros) throws IOException {
 
+        LocalDateTime agora = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("_yyyyMMdd_HHmmss");
+        String dataHora = agora.format(formatter);
+
         File diretorio = new File("data/arquivorecebido");
 
-        String nomeArquivo = "Arquivo_recebido.csv";
+        String nomeArquivo = "Arquivo_recebido"+dataHora+".csv";
         String caminhoCompleto = diretorio.getAbsolutePath() + File.separator + nomeArquivo;
 
         try (CSVWriter writer = new CSVWriter(new FileWriter(caminhoCompleto))) {
