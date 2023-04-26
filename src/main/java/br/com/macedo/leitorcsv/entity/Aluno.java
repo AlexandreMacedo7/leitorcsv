@@ -1,9 +1,6 @@
 package br.com.macedo.leitorcsv.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +22,9 @@ public class Aluno {
     private String fone;
     private String serie;
     private String turno;
+
+    @OneToOne
+    private Avaliacao avaliacao;
+    @OneToOne
+    private Livro livro;
 }
