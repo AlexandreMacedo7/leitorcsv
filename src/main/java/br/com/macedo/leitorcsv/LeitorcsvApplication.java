@@ -12,8 +12,4 @@ public class LeitorcsvApplication {
 		SpringApplication.run(LeitorcsvApplication.class, args);
 	}
 
-//	@Bean
-//	public FileMonitoramento fileMonitoramento(){
-//		return new FileMonitoramento();
-//	}
 }
