@@ -14,12 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.Double.valueOf;
+
 @Component
 public class ConversorCsvToEntityMapper {
 
     public List<RegistroAluno> converterCsvParaEntity(MultipartFile file) throws IOException {
 
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         List<RegistroAluno> listaRegistros = new ArrayList<>();
 
@@ -35,7 +37,7 @@ public class ConversorCsvToEntityMapper {
                 registroAluno.setAutor(linha[6]);
                 registroAluno.setEditora(linha[7]);
                 registroAluno.setAnoPublicacao(Integer.valueOf(linha[8]));
-                registroAluno.setNota(Double.valueOf(linha[9]));
+                registroAluno.setNota(valueOf(linha[9]));
                 registroAluno.setDevolucao(LocalDateTime.parse(linha[10], formato));
                 return registroAluno;
             }).collect(Collectors.toList());
